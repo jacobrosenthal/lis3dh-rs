@@ -62,11 +62,18 @@ where
 {
     /// Create a new LIS3DH driver from the given I2C peripheral. Default is
     /// Hz_400 HighResolution.
-    pub fn new(i2c: I2C, address: SlaveAddr) -> Result<Self, Error<E>> {
+    pub fn new<DELAY>(i2c: I2C, address: SlaveAddr, delay: &mut DELAY) -> Result<Self, Error<E>>
+    where
+        DELAY: embedded_hal::blocking::delay::DelayMs<u8>,
+    {
         let mut lis3dh = Lis3dh {
             i2c,
             address: address.addr(),
         };
+
+        //restart device
+        lis3dh.write_register(Register::CTRL5, 0x80)?;
+        delay.delay_ms(5);
 
         if lis3dh.get_device_id()? != DEVICE_ID {
             return Err(Error::WrongAddress);
