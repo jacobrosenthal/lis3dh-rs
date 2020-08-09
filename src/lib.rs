@@ -66,6 +66,9 @@ where
     where
         DELAY: embedded_hal::blocking::delay::DelayMs<u8>,
     {
+        // assuming were fresh boot, bring up can take 5ms, but Ive had better luck with 10
+        delay.delay_ms(10);
+
         let mut lis3dh = Lis3dh {
             i2c,
             address: address.addr(),
@@ -73,7 +76,9 @@ where
 
         //restart device
         lis3dh.write_register(Register::CTRL5, 0x80)?;
-        delay.delay_ms(5);
+
+        // device bring up can take 5ms, but Ive had better luck with 10
+        delay.delay_ms(10);
 
         if lis3dh.get_device_id()? != DEVICE_ID {
             return Err(Error::WrongAddress);
