@@ -345,20 +345,20 @@ where
         // any actual division on the hardware.
         let scale = match (mode, range) {
             // High Resolution mode
-            (Mode::HighResolution, Range::G2) => 0.001,
-            (Mode::HighResolution, Range::G4) => 0.002,
-            (Mode::HighResolution, Range::G8) => 0.004,
-            (Mode::HighResolution, Range::G16) => 0.012,
+            (Mode::HighResolution, Range::G2) => 0.01,
+            (Mode::HighResolution, Range::G4) => 0.02,
+            (Mode::HighResolution, Range::G8) => 0.04,
+            (Mode::HighResolution, Range::G16) => 0.12,
             // Normal mode
-            (Mode::Normal, Range::G2) => 0.004,
-            (Mode::Normal, Range::G4) => 0.008,
-            (Mode::Normal, Range::G8) => 0.016,
-            (Mode::Normal, Range::G16) => 0.048,
+            (Mode::Normal, Range::G2) => 0.04,
+            (Mode::Normal, Range::G4) => 0.08,
+            (Mode::Normal, Range::G8) => 0.16,
+            (Mode::Normal, Range::G16) => 0.48,
             // Low Power mode
-            (Mode::LowPower, Range::G2) => 0.016,
-            (Mode::LowPower, Range::G4) => 0.032,
-            (Mode::LowPower, Range::G8) => 0.064,
-            (Mode::LowPower, Range::G16) => 0.192,
+            (Mode::LowPower, Range::G2) => 0.16,
+            (Mode::LowPower, Range::G4) => 0.32,
+            (Mode::LowPower, Range::G8) => 0.64,
+            (Mode::LowPower, Range::G16) => 1.92,
         };
 
         // Depending on which Mode we are operating in, the data has different
